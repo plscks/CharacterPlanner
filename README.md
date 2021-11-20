@@ -3,11 +3,16 @@ Nexus Clash Breath 5 (2021) has many changes, lots of them mechanical in nature.
 Nexus Clash Character Planner has become outdated throughout the years, being built on the planner that
 was in use during Nexus War. This project attempts to completely rewrite the Planner.
 
-I decided to write it in a language that I love and that I love to learn, Python 3. I decided to use Flask as the framework for it
+I decided to write it in a language that I love and that I love to learn, Python 3 with Flask. I used Flask as the framework for it
 mostly because I thought it would be fun to learn how Flask works, it was, and it continues to be.
 
-The project however did not start with a web app in mind, instead it started with the [Character](https://repo.plscks.net/plscks/flaskNCPlanner/src/branch/main/testappPI/models/character.py) class which was followed by the [Skills](https://repo.plscks.net/plscks/flaskNCPlanner/src/branch/main/testappPI/models/skills.py) class.
+The project however did not start with a web app in mind, instead it started with the [Character](https://www.github.com/plscks/CharacterPlanner/src/branch/main/testappPI/models/character.py) class which was followed by the [Skills](https://www.github.com/plscks/CharacterPlanner/src/branch/main/testappPI/models/skills.py) class.
 These two classes were in themselves my adventure into writing a class, it has been a fun road so far!
+
+Getting Nexus Clash Breath 5 up and running has been a pretty intensive undertaking and we (Nexus Clash Development Team and Admins) are after all working on this stuff in our free time amidst family, current careers, changing careers, health issues, other hobbies, and everything else that life will thow at a person! But I assure you that the game and everything involved is a labour of love for us all! With that in mind, please don't hesitate to stop over to the <a href="https://github.com/plscks/CharacterPlanner/issues">Character Planner Issue Tracker</a> and let me know about bugs and your other ideas for layout etc... I can't promise that I will attend to things immediately, but I will take every bug and suggestion seriously and work to address each thing as I get time. Just try to remember, I can't fix the broken stuff if I don't know it's broken! Thank you! If you don't want to make an issue on the tracker for any reason at all, please go ahead and shoot me a Direct Message on [Discord](https://discord.com), I can be found reliably in the [Nexus Clash Discord Server](https://discord.gg/gf87Umw) with the username `plscks#0156`. I can also be reached at the [Nexus Clash Forums](https://www.nexusclash.com/memberlist.php?mode=viewprofile&u=54) username `plscks`, but I don't check my forums messages nearly as often as I check Discord.
+
+If by chance you'd like to contribute to this project, I welcome it! I'm not a python 3 or Flask expert by any means so I'm certain that I have done things in here that are cringeworth, if you've got a better way to go about it, please fee more than free to fork this thing make some changes and put in a [Pull Request](https://github.com/plscks/CharacterPlanner/pulls)! I'm always looking for better ways to do things and a chance to learn something from someone that knows better! If you might not want to contribute, but do want to poke around at this python thing and Flask, I've included most of everything required (below) to get a local development environment up and running on windows. I personally use [Windows Subsystem for Linux (WSL) 2](https://docs.microsoft.com/en-us/windows/wsl/install) for this and that is a little more in depth of a setup, but if you'd like to dabble with it, I'd be glad to help you out!
+
 
 Local Development Setup
 ---
@@ -20,10 +25,10 @@ getting at a minimum, a development environment set up for this project on Windo
 4. Restart VSCode
 5. Press the explorer icon on the left (the top one)
 6. Click `clone repository`
-7. Paste the repository link in there and hit enter: `https://repo.plscks.net/plscks/flaskNCPlanner.git`
+7. Paste the repository link in there and hit enter: `https://repo.plscks.net/plscks/CharacterPlanner.git`
 8. Find a good location to save the project (it will save it into a folder in the location you choose)
 9. Click `Open Folder` or `File->Open Folder`
-10. Choose the `flaskNCPlanner` folder in the location you saved it
+10. Choose the `CharacterPlanner` folder in the location you saved it
 11. Trust the authors (me)
 12. Click the `Run and Debug` button on the left
 13. Select `Python: Flask` from the dropdown at the top and then click the green arrow next to the dropdown menu (Start Debugging)
@@ -48,7 +53,7 @@ getting at a minimum, a development environment set up for this project on Windo
 32. Next we need to install redis, head over  [here](https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504)
 33. Click on `Redis-x64-3.0.504.msi` to download it
 34. Install it with the default settings
-35. Next obtain the `.cfg` file from me and toss it into the main flaskNCPlanner folder. This is how we will pass secret keys to flask
+35. Next obtain the `.cfg` and `skills.db` files from me and toss `.cfg` into the root folder and `skills.db` into the `root/testappPI/services` folder. This is how we will pass secret keys to flask and get our skills.
 36. Now open .cfg in VSCode by going back to our project and clicking the Explorer icon on the left, then click on `.cfg` which you copied into the folder last step
 37. Be sure line 4 is `SESSION_REDIS=redis://127.0.0.1:6379` if it is not
 37b. If you are on *nix operating system please consider [securing redis with a password](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04#step-4-%E2%80%94-configuring-a-redis-password) and by other means such as binding it specifically to localhost and forbidding outside access.

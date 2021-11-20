@@ -3,11 +3,11 @@
     const popin = {
         'Desc': {
             'class': '.description',
-            'width': '-400px'
+            'width': '-410px'
         },
         'Spells': {
             'class': '.spells',
-            'width': '-460px'
+            'width': '-470px'
         }
     }
 
@@ -40,8 +40,9 @@
             const skillArea = document.querySelector('.description');
             skillArea.innerHTML = `
             <h2>${skillName}</h2>
-            <br>
+            <p>
             ${descs[skillName]}
+            </p>
             `;
         });
     });
