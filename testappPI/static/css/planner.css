@@ -78,10 +78,25 @@ body {
 
 .cp_area {
   grid-area: cp_area;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    "cp_info cp_buttons";
   padding: 0 0em 6em 0;
-  column-gap: 0.5em
+  column-gap: 0.5em;
+}
+
+.cp_info {
+  grid-area: cp_info;
+  display: grid;
+  grid-row: 1 / 2;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0 0 1em 0;
+  column-gap: 0.5em;
+}
+
+.cp_buttons {
+  grid-area: cp_buttons;
+  grid-row: 2 / 2;
+  display: block;
 }
 
 .stats_attack {
@@ -165,12 +180,21 @@ body {
 }
 .spellarea { grid-area: spellarea; }
 
-#menuTriggerDesc:hover, #menuTriggerSpells:hover {
+.dropdown-toggle:hover {
   cursor:pointer;
+  background-color: navajowhite;
+  color:purple;
 }
 
 .dropdown-toggle {
-  
+  color: #ffad4c;
+  border: 2px solid blueviolet;
+  text-align: center;
+  margin: auto;
+}
+
+#menuTriggerDesc, #menuTriggerSpells, #gameLink {
+  padding: 5px;
 }
 
 .description {
@@ -181,16 +205,18 @@ body {
   height:300px;
   background:#3b0f8c;
   grid-area: description;
+  border: 5px solid darkslateblue;
 }
 
 .spells {
   position:fixed;
   top:325px;
-  right:-460px;
+  right:-470px;
   width:460px;
   height:410px;
   background:#3b0f8c;
   grid-area: description;
+  border: 5px solid darkslateblue;
 }
 
 .spellsAcid { display: none; }
@@ -338,10 +364,15 @@ body {
 
 .label, .value {
   font-weight: bold;
+  padding: 2px;
 }
 
 .label {
   text-align: right;
+}
+
+.infoLinks {
+  color: chartreuse;
 }
 
 .Ex-Defiler, .Ex-Pariah, .Paladin, .Shepherd, .Redeemed, .Holy-Champion, .Seraph, .Exalted-Harbinger, .Advocate, .Archon, .Lightspeaker {

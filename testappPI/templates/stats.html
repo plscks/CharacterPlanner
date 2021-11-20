@@ -1,14 +1,19 @@
 <div class="cp_area">
-    <div class="label" id="level_label">Current Level:</div>
-    <div class="value" id="level">{{ dude.level }}</div>
-    <div class="label" id="cp_label">Total CP Banked:</div>
-    <div class="value" id="cp">{{ dude.cp }}</div>
-    <div class="label" id="spent_cp_label">Total CP Spent:</div>
-    <div class="value" id="spent_cp">{{ dude.spent_cp }}</div>
-    <div class="button" id="levelup">Level Up</div>
-    <a href="{{ url_for('reset') }}" class="button" id="reset">Reset</a>
-    <a id="menuTriggerDesc" class="dropdown-toggle" data-toggle="dropdown">Descriptions</a>
-    <a id="menuTriggerSpells" class="dropdown-toggle" data-toggle="dropdown">Spells</a>
+    <div class="cp_info">
+        <div class="label" id="level_label">Current Level:</div>
+        <div class="value" id="level">{{ dude.level }}</div>
+        <div class="label" id="cp_label">Total CP Banked:</div>
+        <div class="value" id="cp">{{ dude.cp }}</div>
+        <div class="label" id="spent_cp_label">Total CP Spent:</div>
+        <div class="value" id="spent_cp">{{ dude.spent_cp }}</div>
+        <div class="button" id="levelup">Level Up</div>
+        <a href="{{ url_for('reset') }}" class="button" id="reset">Reset</a>
+    </div>
+    <div class="cp_buttons">
+        <a id="menuTriggerDesc" class="dropdown-toggle" data-toggle="dropdown">Descriptions</a>
+        <a id="menuTriggerSpells" class="dropdown-toggle" data-toggle="dropdown">Spells</a>
+        <a id="gameLink" class="dropdown-toggle" href="https://www.nexusclash.com/clash.php">Back to Game</a>
+    </div>
     <!--
     <table>
         <tbody>
