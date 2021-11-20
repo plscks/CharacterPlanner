@@ -70,6 +70,7 @@ instance/
 *.db
 *.csv
 gunicorn.py
+logs/
 
 # Scrapy stuff:
 .scrapy
