@@ -1,0 +1,32 @@
+input, button, textarea {
+    border: 2px solid rgba(0, 0, 0, 0.6);
+    background-image:none;
+    background-color: #dadad3;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    padding: 5px;
+}
+
+input:focus {
+    outline: burlywood;
+}
+
+textarea {
+    min-height: 50px;
+    resize:vertical;
+}
+
+button {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.error {
+    color: darkred;
+    font-weight: bolder;
+}
+
+.form-wrapper {
+    display: inline-grid;
+}

@@ -1,0 +1,91 @@
+{% from "skilltree.html" import skilltree with context %}
+{% from "spelltree.html" import spelltree with context %}
+<!doctype html>
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <meta charset="utf-8">
+        <meta name="description" content={{ description }}>
+        <link rel="shortcut icon" href="/favicon.ico">
+        <link href="{{ url_for('static', filename='css/planner.css') }}" rel="stylesheet">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="https://kit.fontawesome.com/ac3b596b7a.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="description"></div>
+        <div class='spells'>
+            <div class='spellMenu'>
+                <a id="menuTriggerAcid" class="dropdown-toggle" data-toggle="dropdown">Acid</a>
+                <a id="menuTriggerCold" class="dropdown-toggle" data-toggle="dropdown">Cold</a>
+                <a id="menuTriggerDeath" class="dropdown-toggle" data-toggle="dropdown">Death</a>
+                <a id="menuTriggerElectric" class="dropdown-toggle" data-toggle="dropdown">Electric</a>
+                <a id="menuTriggerFire" class="dropdown-toggle" data-toggle="dropdown">Fire</a>
+                <a id="menuTriggerGlyph" class="dropdown-toggle" data-toggle="dropdown">Glyph</a>
+                <a id="menuTriggerImpact" class="dropdown-toggle" data-toggle="dropdown">Impact</a>
+                <a id="menuTriggerPiercing" class="dropdown-toggle" data-toggle="dropdown">Piercing</a>
+                <a id="menuTriggerSlashing" class="dropdown-toggle" data-toggle="dropdown">Slashing</a>
+                <a id="menuTriggerUtility" class="dropdown-toggle" data-toggle="dropdown">Utility</a>
+            </div>
+            <div class='spellsAcid'>{{ spelltree(spells_list['Acid'], 'Acid') }}</div>
+            <div class='spellsCold'>{{ spelltree(spells_list['Cold'], 'Cold') }}</div>
+            <div class='spellsDeath'>{{ spelltree(spells_list['Death'], 'Death') }}</div>
+            <div class='spellsElectric'>{{ spelltree(spells_list['Electric'], 'Electric') }}</div>
+            <div class='spellsFire'>{{ spelltree(spells_list['Fire'], 'Fire') }}</div>
+            <div class='spellsGlyph'>{{ spelltree(spells_list['Glyph'], 'Glyph') }}</div>
+            <div class='spellsImpact'>{{ spelltree(spells_list['Impact'], 'Impact') }}</div>
+            <div class='spellsPiercing'>{{ spelltree(spells_list['Piercing'], 'Piercing') }}</div>
+            <div class='spellsSlashing'>{{ spelltree(spells_list['Slashing'], 'Slashing') }}</div>
+            <div class='spellsUtility'>{{ spelltree(spells_list['Utility'], 'Utility') }}</div>
+        </div>
+        <div class="grid-container">
+            <div class="skillarea">
+                <div class="topbar">
+                    <div class="tierselectarea">
+                        <div class="t2_choice">
+                            <div class="dropdown">
+                                <button class="dropbtn {{ dude.class_2_choice }}">{{ dude.class_2_choice }} <i class="fas fa-angle-double-down"></i></button>
+                                <div class="dropdown-content">
+                                    {% for exit in dude.mortal_exits %}
+                                        <a href="{{ url_for('planner', tier2=exit[1], reset=None) }}" id="{{ exit[1] }}">{{ exit[1] }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="t3_choice">
+                            <div class="dropdown">
+                                <button class="dropbtn {{ dude.class_3_choice.replace(" ", "-") }}" >{{ dude.class_3_choice }} <i class="fas fa-angle-double-down"></i></button>
+                                <div class="dropdown-content">
+                                    {% for exit in dude.exit_classes(dude.class_2_choice) %}
+                                        <a href="{{ url_for('planner', tier2=dude.class_2_choice, tier3=exit, reset=None) }}" id="{{ exit.replace(" ", "-") }}">{{ exit }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="statsarea">
+                        {% include 'stats.html' %}
+                    </div>
+                    <div class="badgearea"></div>
+                </div>
+                <div class="skills">
+                    <div class="skilltrees">
+                        <div class="mortalskills">
+                        {{ skilltree('Mortal', mortalskills) }}
+                        </div>
+                        <div class="t2skills {{ dude.class_2_choice }}">
+                        {{ skilltree(dude.class_2_choice, t2skills) }}
+                        </div>
+                        <div class="t3skills {{ dude.class_3_choice.replace(" ", "-") }}">
+                        {{ skilltree(dude.class_3_choice, t3skills) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar">
+            {% include 'sidebar.html' %}
+            </div>
+        </div>
+        <script>const descs = {{ descriptions | tojson | safe }};</script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/planner.js') }}"></script>
+    </body>
+</html>

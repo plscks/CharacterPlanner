@@ -1,0 +1,41 @@
+{% macro skilltree(display_class, skills_list) %}
+    <h1>{{ display_class }}</h1>
+    <ul>
+        {%- for skill in skills_list -%}
+            {% if skill.base_skill == 1 %}
+                <li>
+                    <span class="skilldesc">
+                        <input class="skillbuy" type="checkbox" id="{{ skill.skill_name }}" name="{{ skill.skill_name }}" value="{{ skill.skill_name }}, {{ skill.CP_cost }}, '', {{ display_class }}">
+                        <label for="{{ skill.skill_name }}">{{ skill.skill_name }} ({{ skill.CP_cost }} CP)</label>
+                    </span>
+                </li>
+                <ul>
+                {%- for skill2 in skills_list -%}
+                    {% if skill2.parent_skill == skill.skill_name %}
+                        <li>
+                            <span class="skilldesc">
+                                <input class="skillbuy" type="checkbox" id="{{ skill2.skill_name }}" name="{{ skill2.skill_name }}" value="{{ skill2.skill_name }}, {{ skill2.CP_cost }}, {{ skill.skill_name }}, {{ display_class }}">
+                                <label for="{{ skill2.skill_name }}">{{ skill2.skill_name }} ({{ skill2.CP_cost }} CP)</label>
+                            </span>
+                        </li>
+                        <ul>
+                        {%- if skill2.has_child == 1 -%}
+                            {%- for skill3 in skills_list -%}
+                                {% if skill3.parent_skill == skill2.skill_name %}
+                                    <li>
+                                        <span class="skilldesc">
+                                            <input class="skillbuy" type="checkbox" id="{{ skill3.skill_name }}" name="{{ skill3.skill_name }}" value="{{ skill3.skill_name }}, {{ skill3.CP_cost }}, {{ skill2.skill_name }}, {{ display_class }}">
+                                            <label for="{{ skill3.skill_name }}">{{ skill3.skill_name }} ({{ skill3.CP_cost }} CP)</label>
+                                        </span>
+                                    </li>
+                                {% endif %}
+                            {%- endfor -%}
+                        {%- endif -%}
+                        </ul>
+                    {% endif %}
+                {%- endfor -%}
+                </ul>
+            {% endif %}
+        {%- endfor -%}
+    </ul>
+{% endmacro %}

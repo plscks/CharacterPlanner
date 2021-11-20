@@ -1,0 +1,23 @@
+cachelib==0.1.1
+click==8.0.1
+dnspython==2.1.0
+email-validator==1.1.2
+Flask==2.0.1
+flask-redis==0.4.0
+Flask-Session==0.3.2
+Flask-SQLAlchemy==2.5.1
+Flask-WTF==0.15.1
+greenlet==1.1.0
+gunicorn==20.1.0
+idna==3.2
+itsdangerous==2.0.1
+Jinja2==3.0.1
+MarkupSafe==2.0.1
+python-dotenv==0.17.1
+redis==3.5.3
+SQLAlchemy==1.4.18
+Werkzeug==2.0.1
+WTForms==2.3.3
+
+# Uncomment for production server with Apache 2.4
+#mod-wsgi==4.8.0

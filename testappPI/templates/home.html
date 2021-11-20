@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ title }}</h1>
+        <p>{{ description }}</p>
+        <hr>
+        <div class='main'>
+            <p>
+                Hey there, you've landed on my flask test site, this is a place of testing, it is subject to change and other amounts of strangeness while I tinker with things. I am a volunteer developer for <a href='https://www.nexusclash.com'>Nexus Clash</a>, a cool little web game based in php that has been around for 10+ years. I aslo support the game in a more unofficial sort of way by being the maintainer of some third party web tools that are very usefulu for the players. The real madness of this site happens in the planner section while the rest is mostly just testing different Flask related things part by part, a series of tests if you will that will help to lead up to a finished product. So, sorry for the mess. and the awful CSS color scheme. :D
+            </p>
+            <div class='links'>
+                Here are some links and stuff:
+                <p>
+                    <a href='https://www.github.com/plscks'>My github profile</a>
+                    <br>
+                    <h3>Nexus Clash Related Things</h3>
+                    <li>My NC <a href='https://plscks.github.io/testHYPERMAP/profileLookup.html'>Character Profile Lookup Tool</a> which was written entirely by me and was an adventure in insteracting with an API in JS.</li>
+                    <li>The Nexus Clash <a href='https://plscks.github.io/testHYPERMAP/hypermap.html'>Hypermap</a> which I did not write, but I currently maintain and have put much effort into keeping in up to date over the years.</li>
+                    <li>The Nexus Clash <a href='https://plscks.github.io/testHYPERMAP/chargen_b4_v2_5.html'>Character Planner</a> (the same idea as this site's main goal, which is to be its successor) Which I did not write, but I do maintain.
+                    <li>The <a href='https://github.com/plscks/testHYPERMAP'>repository</a> where these projects reside.</li>
+        </div>
+    </div>
+{% endblock content %}

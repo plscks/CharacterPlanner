@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link href="{{ url_for('static', filename='css/char_profile.css') }}" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $(function() {
+          $('#levelup').on('click', function(e) {
+            e.preventDefault()
+            $.getJSON('/levelup',
+                function(data) {
+                    console.log(data)
+                    const items = Array('level', 'hp_max', 'mp_max', 'ap_max', 'cp', 'spent_cp')
+                    items.forEach((item) => {
+                        document.getElementById(item).innerText = data[item];
+                    });
+            });
+            return false;
+          });
+        });
+    </script>
+{% endblock css %}
+
+{% block content %}
+    <h2>{{ title }}:</h2>
+    <div class="profile">
+        <span class="heading">Character Name:</span> <span class="values">{{ dude.name }}</span><br>
+        <span class="heading">Character Level:</span> <span class="values" id="level">{{ dude.level }}</span><br>
+        <span class="heading">Character Max HP:</span> <span class="values" id="hp_max">{{ dude.hp_max }}</span><br>
+        <span class="heading">Character Max MP:</span> <span class="values" id="mp_max">{{ dude.mp_max }}</span><br>
+        <span class="heading">Character Max AP:</span> <span class="values" id="ap_max">{{ dude.ap_max }}</span><br>
+        {% if dude.class_3 != '' %}
+            <span class="heading">Character Class:</span> <span class="values" id="class_3">{{ dude.class_3 }}</span><br>
+        {% elif dude.class_3 == '' and dude.class_2 != '' %}
+            <span class="heading">Character Class:</span> <span class="values" id="class_2">{{ dude.class_2 }}</span><br>
+        {% else %}
+            <span class="heading">Character Class:</span> <span class="values" id="class_1">{{ dude.class_1 }}</span><br>
+        {% endif %}
+        <span class="heading">Character Banked CP:</span> <span class="values" id="cp">{{ dude.cp }}</span><br>
+        <span class="heading">Character Spent CP:</span> <span class="values" id="spent_cp">{{ dude.spent_cp }}</span><br>
+    </div>
+    <span class="button" id="levelup">Level Up</span> <a href="{{ url_for('show_dude', level=dude.level, name=dude.name) }}"><button class="button">refresh</button></a>
+{% endblock content %}

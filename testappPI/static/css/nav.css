@@ -1,0 +1,38 @@
+.navigation {
+    margin: 6px;
+    padding: 6px;
+    font-size: large;
+    background-color: black;
+    color: aquamarine;
+}
+
+#home {
+    margin: 6px;
+    font-weight: bold;
+    color: skyblue;
+}
+
+#api {
+    margin: 6px;
+    color: bisque;
+}
+
+#clash {
+    margin: 6px;
+    color: deeppink
+}
+
+#flask {
+    margin: 6px;
+    color: royalblue
+}
+
+#contacts {
+    margin: 6px;
+    color: wheat;
+}
+
+#contacts {
+    margin: 6px;
+    color: rgb(16, 173, 81);
+}

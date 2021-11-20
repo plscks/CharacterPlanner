@@ -1,0 +1,13 @@
+{% macro spelltree(spellslist, type) %}
+    <h1>{{ type }} Spells</h1>
+    <ul>
+        {%- for spell in spellslist | sort(attribute = 'turned_off') -%}
+            <li>
+                <span class="skilldesc">
+                    <input class="skillbuy" type="checkbox" id="{{ spell.skill_name }}" name="{{ spell.skill_name }}" value="{{ spell.skill_name }}, {{ spell.CP_cost }}, {{ spell.parent_skill }}, {{ spell.skill_class }}">
+                    <label for="{{ spell.skill_name }}">{{ spell.skill_name }} ({{ spell.CP_cost }} CP)</label>
+                </span>
+            </li>
+        {%- endfor -%}
+    </ul>
+{% endmacro %}

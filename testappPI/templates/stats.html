@@ -1,0 +1,77 @@
+<div class="cp_area">
+    <div class="label" id="level_label">Current Level:</div>
+    <div class="value" id="level">{{ dude.level }}</div>
+    <div class="label" id="cp_label">Total CP Banked:</div>
+    <div class="value" id="cp">{{ dude.cp }}</div>
+    <div class="label" id="spent_cp_label">Total CP Spent:</div>
+    <div class="value" id="spent_cp">{{ dude.spent_cp }}</div>
+    <div class="button" id="levelup">Level Up</div>
+    <a href="{{ url_for('reset') }}" class="button" id="reset">Reset</a>
+    <a id="menuTriggerDesc" class="dropdown-toggle" data-toggle="dropdown">Descriptions</a>
+    <a id="menuTriggerSpells" class="dropdown-toggle" data-toggle="dropdown">Spells</a>
+    <!--
+    <table>
+        <tbody>
+            <tr>
+                <td id="level_label">Current Level:</td>
+                <td id="level">{{ dude.level }}</td>
+            </tr>
+            <tr>
+                <td id="cp_label">Total CP Banked:</td>
+                <td id="cp"> {{ dude.cp }}</td>
+            </tr>
+            <tr>
+                <td id="spent_cp_label">Total CP Spent:</td>
+                <td id="spent_cp"> {{ dude.spent_cp }}</td>
+            <tr>
+                <td><div class="button" id="levelup">Level Up</div></td>
+                <td><a href="{{ url_for('reset') }}"><button class="button">Reset</button></a>
+        </tbody>
+    </table>
+    -->
+</div>
+<div class="stats_attack">
+    <div class="acc_boost">
+        <div class="acc_boost_label">Accuracy Boosts</div>
+        <div class="melee_acc_label">Melee Acc:</div>
+        <div class="melee_acc" id="melee_acc">{{ dude.melee_acc }}%</div>
+        <div class="sword_acc_label">Sword Acc:</div>
+        <div class="sword_acc" id="sword_acc">{{ dude.sword_acc }}%</div>
+        <div class="hth_acc_label">Hand-to-Hand Acc:</div>
+        <div class="hth_acc" id="hth_acc">{{ dude.hth_acc }}%</div>
+        <div class="ehw_acc_label">Heavy Acc:</div>
+        <div class="ehw_acc" id="ehw_acc">{{ dude.ehw_acc }}%</div>
+        <div class="bow_acc_label">Bow Acc:</div>
+        <div class="bow_acc" id="bow_acc">{{ dude.bow_acc }}%</div>
+        <div class="firearm_acc_label">Firearm Acc:</div>
+        <div class="firearm_acc" id="firearm_acc">{{ dude.firearm_acc }}%</div>
+        <div class="thrown_acc_label">Thrown Acc:</div>
+        <div class="thrown_acc" id="thrown_acc">{{ dude.thrown_acc }}%</div>
+        <div class="spell_acclabel">Spell Acc:</div>
+        <div class="spell_acc" id="spell_acc">{{ dude.spell_acc }}%</div>
+    </div>
+    <div class="atk_boost">
+        <div class="atk_boost_label">Attacking Damage Boosts</div>
+        <div class="melee_dam_label">Melee Dmg:</div>
+        <div class="melee_dam" id="melee_dam">+{{ dude.melee_dam }}</div>
+        <div class="sword_dam_label">Sword Dmg:</div>
+        <div class="sword_dam" id="sword_dam">+{{ dude.sword_dam }}</div>
+        <div class="hth_dam_label">Hand-to-Hand Dmg:</div>
+        <div class="hth_dam" id="hth_dam">+{{ dude.hth_dam }}</div>
+        <div class="death_type_label">Death Type Dmg:</div>
+        <div class="death_type" id="death_type">+{{ dude.death_type }}</div>
+        <div class="bow_dam_label">Bow Dmg:</div>
+        <div class="bow_dam" id="bow_dam">+{{ dude.bow_dam }}</div>
+        <div class="firearm_dam_label">Firearm Dmg:</div>
+        <div class="firearm_dam" id="firearm_dam">+{{ dude.firearm_dam }}</div>
+        <div class="thrown_dam_label">Thrown Dmg:</div>
+        <div class="thrown_dam" id="thrown_dam">+{{ dude.thrown_dam }}</div>
+        <div class="gen_spell_dam_label">Spell Dmg:</div>
+        <div class="gen_spell_dam" id="gen_spell_dam">+{{ dude.gen_spell_dam }}</div>
+        <div class="gem_spell_dam_label">Spellgem Dmg:</div>
+        <div class="gem_spell_dam" id="gem_spell_dam">+{{ dude.gem_spell_dam }}</div>
+    </div>
+</div>
+<div class="defense_area">
+    <div class="hp_max" id="hp_max">Max HP: {{ dude.hp_max }}</div>
+</div>

@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+    <div class="form-wrapper">
+        <h2>{{title}}</h2>
+        <form method="POST" action="{{ url_for('signup') }}">
+            <fieldset class="form-field">
+                {{ form.email.label }}
+                {{ form.email }}
+            </fieldset>
+            <fieldset class="form-field">
+                {{ form.password.label }}
+                {{ form.password }}
+            </fieldset>
+            <fieldset class="form-field">
+                {{ form.confirmPassword.label }}
+                {{ form.confirmPassword }}
+            </fieldset>
+            <fieldset class="form-field">
+                {{ form.officialTitle.label }}
+                {{ form.officialTitle }}
+            </fieldset>
+            <fieldset class="form-field">
+                {{ form.website.label }}
+                {{ form.website }}
+            </fieldset>
+            <fieldset class="form-field">
+                {{ form.birthday.label }}
+                {{ form.birthday }}
+            </fieldset>
+            {{ form.submit }}
+{% endblock content %}
