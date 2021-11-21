@@ -199,10 +199,10 @@ body {
 
 .description {
   position:fixed;
-  top:20px;
+  top:60px;
   right:0px;
   width:400px;
-  height:300px;
+  height:320px;
   background:#3b0f8c;
   grid-area: description;
   border: 5px solid darkslateblue;
@@ -210,9 +210,9 @@ body {
 
 .spells {
   position:fixed;
-  top:325px;
+  top:395px;
   right:-470px;
-  width:460px;
+  width:400px;
   height:410px;
   background:#3b0f8c;
   grid-area: description;

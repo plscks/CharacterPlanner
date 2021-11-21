@@ -5,6 +5,7 @@ from flask import render_template, make_response, request, url_for, redirect, g,
 from flask import current_app as app
 from flask import json
 from flask.json import jsonify
+import gc
 from sqlalchemy.sql.expression import false
 from .forms import ContactForm, SignupForm
 from .models import character, skills, skillAttrib
@@ -53,6 +54,7 @@ def mortal_skills(selected_class):
 @app.route('/planner/reset/')
 def reset():
     session.pop('dude', None)
+    gc.collect()
     return redirect(url_for('planner', tier2=None, tier3=None, reset=1))
 
 
@@ -74,7 +76,6 @@ def update():
 def planner(tier2, tier3, reset):
     skills = database.SkillDB()
     spells = database.SpellDB()
-    print(f'reset: {reset}')
     if reset == 3:
         reset = 1
     dude_set = skillDisplay.key_in('dude', session)
@@ -85,18 +86,15 @@ def planner(tier2, tier3, reset):
         session['dude'] = dude
     mortalskills = skills.getSkills('Mortal')
     if not tier2 and not tier3:
-        print('not tier 2')
         t2skills = skills.getSkills(dude.class_2_choice)
         t3skills = skills.getSkills(dude.class_3_choice)
     elif tier2 and not tier3:
-        print(f'tier2: {tier2} and not tier3: {tier3}')
         t2choice = tier2.title()
         dude.chooseclass(2, tier2)
         dude.chooseclass(3, dude.exit_classes(t2choice)[0])
         t2skills = skills.getSkills(t2choice)
         t3skills = skills.getSkills(dude.exit_classes(t2choice)[0])
     else:
-        print('else')
         t2choice = tier2.title()
         t3choice = tier3.title()
         dude.chooseclass(2, tier2)
@@ -129,11 +127,8 @@ def levelup():
     if dude_set:
         dude = session['dude']
     else:
-        uh_oh = 'Something went wrong!'
-        print(uh_oh)
         dude = character.Character('dude')
     if dude.level != 30:
-        print(f'Leveling up {dude.name} from level {dude.level} to {dude.level + 1}...')
         dude.levelup()
     session['dude'] = dude
     result = dude.to_dict2()
@@ -146,14 +141,12 @@ def busykill():
     cost = request.args.get('cost', 0, type=int)
     parent = request.args.get('parent', '', type=str)
     skillclass = request.args.get('skillclass', '', type=str)
-    print(f'buying a skill maybe? skill: {skill}  cost: {cost}  parent: {parent}  skillclass: {skillclass}')
+    rowID = request.args.get('buildID', '', type=str)
     ##dude = session.get('dude')
     dude_set = skillDisplay.key_in('dude', session)
     if dude_set:
         dude = session['dude']
     else:
-        uh_oh = 'Something went wrong!'
-        print(uh_oh)
         dude = character.Character('dude')
     dude_classes = [dude.class_1, dude.class_2, dude.class_3]
     if dude.cp >= cost and skillclass in dude_classes:
@@ -163,25 +156,22 @@ def busykill():
             for skillcheck in dude_skills:
                 if skillcheck == parent:
                     dude.skillbuy(skill, cost, parent, skillclass)
+                    dude.buildplan.append(rowID)
                     session['dude'] = dude
                     result = dude.to_dict2()
             if not result:
                 failure = f'You do not know the parent skill required to purchase this skill!'
-                print(failure)
                 result = ['Failure', failure]
         else:
             dude.skillbuy(skill, cost, parent, skillclass)
+            dude.buildplan.append(rowID)
             session['dude'] = dude
             result = dude.to_dict2()
     else:
-        print(f'skillclass: {skillclass}')
         if not skillclass:
-            print(f'skillclass is false')
             failure = 'Characters of your alignment cannot learn this spell!\n(note Angels cannot learn Acid spells and Demons cannot learn Electric spells)'
         else:
-            print('skillclass is not false?')
             failure = 'You do not have the CP or class required to purchase this skill!'
-        print(failure)
         result = ['Failure', failure]
     return json.dumps(result)
 
@@ -193,12 +183,10 @@ def updatePane():
     dude_set = skillDisplay.key_in('dude', session)
     if dude_set:
         dude = session['dude']
-        print(f'Updating panes: pane: {pane} | spell: {spell}')
         dude.setPane(pane, spell)
         result = 'success'
     else:
         failure = 'Something went wrong setting the pane state!'
-        print(failure)
         result = ['Failure', failure]
     return result
         
@@ -218,17 +206,16 @@ def grabdata():
 @app.route('/sellskill', methods=['GET'])
 def sellskill():
     skill = request.args.get('skill', '', type=str)
-    print(f'Selling a skill maybe? skill: {skill}')
+    rowID = request.args.get('buildID', '', type=str)
     ##dude = session.get('dude')
     dude_set = skillDisplay.key_in('dude', session)
     if dude_set:
         dude = session['dude']
     else:
-        uh_oh = 'Something went wrong!'
-        print(uh_oh)
         dude = character.Character('dude')
     skillsold = dude.sellskill(skill)
     if skillsold == True:
+        dude.buildplan = [row for row in dude.buildplan if row not in rowID]
         session['dude'] = dude
         result = dude.to_dict2()
         return json.dumps(result)

@@ -3,7 +3,7 @@ class Character:
     The Character class is a Nexus Clash character object, it should hold all of the data that a character would.
     Skills along with a skill history, basic stats, level up function, as much as I can get to work really.
     """
-    def __init__(self, name, level=1, hp=50, mp=20, ap=50, cp=10, spent_cp=0, skills=[], class_2=None, class_3=None, class_2_choice='Paladin', class_3_choice='Seraph'):
+    def __init__(self, name, level=1, hp=50, mp=20, ap=50, cp=10, spent_cp=0, skills=[], buildplan = [], class_2=None, class_3=None, class_2_choice='Paladin', class_3_choice='Seraph'):
         self.name = name
         self.level = level
         self.hp_max = hp
@@ -12,6 +12,7 @@ class Character:
         self.cp = cp
         self.spent_cp = spent_cp
         self.skills = skills
+        self.buildplan = buildplan
         self.class_1 = 'Mortal'
         self.class_2 = class_2
         self.class_3 = class_3
@@ -102,10 +103,8 @@ class Character:
         from .skills import Skills
         classlist = [self.class_1, self.class_2, self.class_3]
         if self.cp - cost < 0:
-            print(f'You do not have enough CP to purchase {skill}! It costs {cost} CP, you have only {self.cp}!')
             return
         elif reclass not in classlist:
-            print(f'You must be a {reclass} in order to buy {skill}!')
             return
         else:
             if parent == '':
@@ -113,7 +112,6 @@ class Character:
                 self.spent_cp = self.spent_cp + cost
                 self.skills.append(Skills(self.level, skill, cost, parent, reclass))
                 self.addskill()
-                print(f'You have purchased {skill} for {cost}cp! You now have {self.cp}cp')
             else:
                 ownsparent = 0
                 for row in self.skills:
@@ -127,9 +125,7 @@ class Character:
                     self.spent_cp = self.spent_cp + cost
                     self.skills.append(Skills(self.level, skill, cost, parent, reclass))
                     self.addskill()
-                    print(f'You have purchased {skill} for {cost}cp! You now have {self.cp}cp')
                 else:
-                    print(f'You do not have the prerequisite skill of {parent} required to purchase {skill}')
                     return
             if self.class_2 == None and self.spent_cp >= 70 and self.level >= 10:
                 self.chooseclass(2, self.class_2_choice)
@@ -138,9 +134,9 @@ class Character:
 
     def levelup(self):
         if self.level == 30:
-            print(f'You have reached maxx level and cannot grow stronger!')
             return
 
+        start_cp = self.cp
         self.level = self.level + 1
         self.mp_max = self.mp_max + 1
         self.cp = self.cp + 10
@@ -158,14 +154,14 @@ class Character:
                 self.mp_max = self.mp_max + 1
             if self.level == 20 and self.class_3_choice:
                 self.chooseclass(3, self.class_3_choice)
+        fin_cp = self.cp
+        self.buildplan.append(f'+{fin_cp - start_cp}|---Level Up---|{self.level}')
 
         return f'You are now level {self.level} you have {self.cp}cp and have spent {self.spent_cp}'
 
     def delevel(self):
-        print(f'Deleveling:')
         if not self.skills:
             if self.level == 1:
-                print(f'You cannot level down any farther than level {self.level}!')
                 return
             if 10 <= self.level <= 19:
                 level_cp = 20
@@ -180,7 +176,6 @@ class Character:
             self.mp_max = self.mp_max - 1
             self.cp = self.cp - level_cp
             self.level = self.level - 1
-            print(f'New level is {self.level} new cp total is {self.cp}, new spent cp total is {self.spent_cp}')
             self.listskills()
         else:
             if self.skills[len(self.skills)-1].level == self.level:
@@ -199,7 +194,6 @@ class Character:
                 self.mp_max = self.mp_max - 1
                 self.cp = self.cp - level_cp
                 self.level = self.level - 1
-                print(f'New level is {self.level} new cp total is {self.cp}, new spent cp total is {self.spent_cp}')
                 self.listskills()
 
     def stats(self, size=0):
@@ -235,14 +229,11 @@ class Character:
                 setattr(self, stat, getattr(self, stat) - getattr(last_skill, stat))
         self.cp = self.cp + last_skill.cost
         self.spent_cp = self.spent_cp - last_skill.cost
-        print(f'Removing {last_skill.name}, refunding skill cost of {last_skill.cost}cp.')
-        print(f'New cp total is {self.cp} new spent cp total is {self.spent_cp}')
         self.skills.remove(last_skill)
 
     def sellskill(self, skill):
         for skillcheck in self.skills:
             if skillcheck.parent == skill:
-                print(f'You cannot remove {skill} without first removing {skillcheck.name}!')
                 return f'You cannot remove {skill} without first removing {skillcheck.name}!'
             else:
                 return self.removeskill(skill)
@@ -258,12 +249,9 @@ class Character:
                         setattr(self, stat, getattr(self, stat) - getattr(skill, stat))
                 self.cp = self.cp + skill.cost
                 self.spent_cp = self.spent_cp - skill.cost
-                print(f'Removing {skill.name}, refunding skill cost of {skill.cost}cp.')
-                print(f'New cp total is {self.cp} new spent cp total is {self.spent_cp}')
                 killskill.append(skill)
         if not killskill:
             failure = f'You don\'t seem to  know the skill {removedskill}!'
-            print(failure)
             return failure
         else:
             for remove in killskill:
@@ -421,11 +409,9 @@ class Character:
             old_t3_class = self.class_3
             # Add to choice but nothing more if not able to change class now.
             if tier == 3 and (self.level < 20 or self.spent_cp < 250):
-                print(f'Setting tier 3 class choice to {chosen_class}')
                 self.class_3_choice = chosen_class
                 return
             elif tier == 2 and (self.level < 10 or self.spent_cp < 70):
-                print(f'Setting tier 2 class choice to {chosen_class}')
                 self.class_2_choice = chosen_class
                 return
             # If there is a tier 3 class selected then remove it and all of its skills
@@ -442,7 +428,6 @@ class Character:
                 last_skill = self.skills[len(self.skills) - 1]
                 if self.class_2 == None and self.level >= 10 and self.spent_cp >= 70:
                     # Can buy tier 2 now, do it
-                    print(f'Buying new class: {chosen_class}')
                     self.class_2 = chosen_class
                     self.class_2_choice = chosen_class
                     self.skillbuy(classskills[chosen_class], 0, '', chosen_class)
@@ -463,13 +448,11 @@ class Character:
                             self.class_2_choice = chosen_class
                             # Buy new tier 2 if able and get free skill
                             if self.level >= 10 and self.spent_cp >= 70:
-                                print(f'Buying new class: {chosen_class}')
                                 self.class_2 = chosen_class
                                 self.skillbuy(classskills[chosen_class], 0, '', chosen_class)
             else:
                 last_skill = self.skills[len(self.skills) - 1]
                 if self.class_3 == None and last_skill.cost !=0:
-                    print(f'Buying new class: {chosen_class}')
                     # Can buy tier 3 now, do it
                     self.class_3 = chosen_class
                     self.class_3_choice = chosen_class
@@ -482,10 +465,8 @@ class Character:
                         for i, skill in enumerate(self.skills):
                             if skill.skill_class == old_t2_class:
                                 if skill.name in skillswap:
-                                    print(f'Removing {skill.name} and buying {skillswap[skill.name]}')
                                     self.addturncoatskill(skill.name, skillswap)
                                 else:
-                                    print(f'Nothing to change for {skill.name}, removing and rebuying under new T2 class.')
                                     self.skills[i].skill_class = self.class_2
                         return
                     else:
@@ -494,7 +475,6 @@ class Character:
                     #if self.skills[len(self.skills)-1]
                     self.remove_last_skill()
                     # Set new tier 3
-                    print(f'Buying new class: {chosen_class}')
                     self.class_3_choice = chosen_class
                     # Buy new tier 3 if able and get free skill
                     if self.level >= 19 and self.spent_cp >= 250:
@@ -521,12 +501,9 @@ class Character:
                             getattr(skill, stat),
                             int) and stat != 'cost':
                         setattr(self, stat, getattr(self, stat) - getattr(skill, stat))
-                print(f'Removing {skill.name} attributes and refunding skill cost of {cost}cp.')
-                print(f'New cp total is {self.cp} new spent cp total is {self.spent_cp}')
                 # buy new skill
                 self.skills.append(Skills(self.level, newskill, cost, parent, reclass))
                 self.addskill()
-                print(f'You have purchased {newskill} for {cost}cp! You now have {self.cp}cp')
         return
 
     def to_dict(self):
@@ -597,7 +574,6 @@ class Character:
 
 
     def setPane(self, pane, type):
-        print(f'setPane(pane: {pane}, type: {type})')
         if pane == 'Desc':
             self.descPane = not self.descPane
         elif pane == 'Spells':
