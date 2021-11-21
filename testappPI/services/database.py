@@ -197,10 +197,8 @@ class SpellDB(db.Model):
         for type in masterlist:
             spells = []
             if type == 'Glyph':
-                print('tmp')
                 spells = self.query.filter(SpellDB.spell_name == SpellDB.spell_base, SpellDB.spell_damage_type == 'area').order_by(SpellDB.spell_MP_cost, SpellDB.attack_tree.desc()).all()
             elif type == 'Utility':
-                print('tmp')
                 spells = self.query.filter(SpellDB.spell_name == SpellDB.spell_base, or_(SpellDB.spell_damage_type == 'buff1', SpellDB.spell_damage_type == 'buff2')).order_by(SpellDB.spell_MP_cost, SpellDB.attack_tree.desc()).all()
             else:
                 spells = self.query.filter(SpellDB.spell_name == SpellDB.spell_base, SpellDB.spell_damage_type == type.lower()).order_by(SpellDB.spell_MP_cost, SpellDB.attack_tree.desc()).all()
@@ -210,8 +208,6 @@ class SpellDB(db.Model):
 
     def getReqClass(self, dude, spellrow):
         """Return a dude specific list where 0 is skill required for spells and position 1 is the class requirement"""
-        if spellrow.spell_name == 'Fiery Corona':
-            print('this one')
         spellskill = {
             'Sorcerer': 'Spellcraft',
             'Defiler': 'Spellcraft',
