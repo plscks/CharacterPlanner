@@ -78,10 +78,12 @@ class Character:
             ['Paladin', 'Seraph'],
             ['Paladin', 'Holy Champion'],
             ['Paladin', 'Fallen'],
+            ['Ex-Paladin', 'Fallen'],
             ['Shepherd', 'Advocate'],
             ['Shepherd', 'Archon'],
             ['Shepherd', 'Lightspeaker'],
             ['Shepherd', 'Fallen'],
+            ['Ex-Shepherd', 'Fallen'],
             ['Myrmidon', 'Eternal Soldier'],
             ['Myrmidon', 'Nexus Champion'],
             ['Myrmidon', 'Revenant'],
@@ -93,10 +95,12 @@ class Character:
             ['Pariah', 'Void Walker'],
             ['Pariah', 'Doom Howler'],
             ['Pariah', 'Redeemed'],
+            ['Ex-Pariah', 'Redeemed'],
             ['Defiler', 'Dark Oppressor'],
             ['Defiler', 'Wyrm Master'],
             ['Defiler', 'Corruptor'],
-            ['Defiler', 'Redeemed']
+            ['Defiler', 'Redeemed'],
+            ['Ex-Defiler', 'Redeemed']
         ]
 
     def skillbuy(self, skill, cost, parent, reclass):

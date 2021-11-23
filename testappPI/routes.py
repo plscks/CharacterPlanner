@@ -16,12 +16,8 @@ db = app.db
 
 nav = [
         {'name': 'Home', 'url': '/', 'id': 'home'},
-        {'name': 'SignUp!', 'url': '/signup', 'id': 'signup'},
-        {'name': 'API link', 'url': '/api', 'id': 'api'},
-        {'name': 'B5 test server', 'url': 'javascript:alert("ACCESS DENIED!!! :P")', 'id': 'clash'},
-        {'name': 'Learn Some Flask!', 'url': 'https://hackersandslackers.com/flask-jinja-templates', 'id': 'flask'},
-        {'name': 'Contacts', 'url': '/contact', 'id': 'contacts'},
-        {'name': 'Logout', 'url': '/logout', 'id': 'logout'},
+        {'name': 'Nexus Clash Wiki', 'url': 'https://wiki.nexusclash.com', 'id': 'signup'},
+        {'name': 'Nexus Clash', 'url': 'https://www.nexusclash.com/clash.php', 'id': 'api'},
         {'name': 'Planner', 'url': '/planner/', 'id': 'planner'}
     ]
 
@@ -85,6 +81,12 @@ def planner(tier2, tier3, reset):
         dude = character.Character('dude')
         session['dude'] = dude
     mortalskills = skills.getSkills('Mortal')
+    if tier2 and not dude.exit_classes(tier2):
+        return make_response(render_template(
+        "error.html",
+        thing=404,
+        nav=nav
+        ), 404)
     if not tier2 and not tier3:
         t2skills = skills.getSkills(dude.class_2_choice)
         t3skills = skills.getSkills(dude.class_3_choice)
@@ -244,6 +246,7 @@ def contact():
 @app.errorhandler(404)
 def not_found(thing):
     """Page not found."""
+    session.pop('dude', None)
     return make_response(render_template(
         "error.html",
         thing=thing,
@@ -254,6 +257,7 @@ def not_found(thing):
 @app.errorhandler(500)
 def broke_stuff(thing):
     """Page broken."""
+    session.pop('dude', None)
     return make_response(render_template(
         "error.html",
         thing=thing,
