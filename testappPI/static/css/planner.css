@@ -159,7 +159,67 @@ body {
   font-weight: bold;
 }
 
-.defense_area { grid-area: defense_area; }
+.defense_area {
+  grid-area: defense_area;
+  display: grid;
+  grid-template-areas: 
+    "base_stats"
+    "soaks";
+  grid-template-rows: 0.45fr 0.55fr;
+  grid-template-columns: 1fr;
+  row-gap: 1.0em;
+ }
+
+.base_stats {
+  grid-area: base_stats;
+  display: grid;
+  grid-template-areas: 
+    "base_stats_label base_stats_label base_stats_label base_stats_label"
+    "max_hp_label max_hp max_mp_label max_mp"
+    "map_ap_label max_ap weight_max_label weight_max"
+    "search_label search hide_label hide";
+  grid-template-columns: 0.4fr 0.1fr 0.4fr 0.1fr;
+  grid-template-rows: repeat(2, 0.2fr);
+  column-gap: 0.8em;
+  font-size: small;
+}
+
+.base_stats_label {
+  display: flex;
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.soaks {
+  grid-area: soaks;
+  display: grid;
+  grid-template-areas: 
+    "soaks_label soaks_label soaks_label soaks_label"
+    "impact_soak_label impact_soak slash_soak_label slash_soak"
+    "pierce_soak_label pierce_soak acid_soak_label acid_soak"
+    "cold_soak_label cold_soak fire_soak_label fire_soak"
+    "elec_soak_label elec_soak death_soak_label death_soak"
+    "holy_soak_label holy_soak unholy_soak_label unholy_soak"
+    "arcane_soak_label arcane_soak . ."
+    "dodge_label dodge evade_label evade";
+  grid-template-columns: 0.4fr 0.1fr 0.4fr 0.1fr;
+  grid-template-rows: repeat(2, 0.6fr);
+  column-gap: 0.8em;
+  font-size: small;
+}
+
+.soaks_label {
+  display: flex;
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
 .badgearea { grid-area: badgearea; }
 .skills {
   display: grid;
@@ -213,7 +273,7 @@ body {
   top:395px;
   right:-470px;
   width:400px;
-  height:410px;
+  height:420px;
   background:#3b0f8c;
   grid-area: description;
   border: 5px solid darkslateblue;

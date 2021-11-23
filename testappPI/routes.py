@@ -151,7 +151,7 @@ def busykill():
     dude_classes = [dude.class_1, dude.class_2, dude.class_3]
     if dude.cp >= cost and skillclass in dude_classes:
         if parent != '':
-            dude_skills = dude.listskills()
+            #dude_skills = dude.listskills()
             result = False
             for skillcheck in dude_skills:
                 if skillcheck == parent:
