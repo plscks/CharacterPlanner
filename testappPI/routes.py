@@ -122,7 +122,7 @@ def planner(tier2, tier3, reset):
 
 @app.route('/levelup', methods=['GET'])
 def levelup():
-    ##dude = session.get('dude')
+    dude = session.get('dude')
     dude_set = skillDisplay.key_in('dude', session)
     if dude_set:
         dude = session['dude']
@@ -142,7 +142,7 @@ def busykill():
     parent = request.args.get('parent', '', type=str)
     skillclass = request.args.get('skillclass', '', type=str)
     rowID = request.args.get('buildID', '', type=str)
-    ##dude = session.get('dude')
+    dude = session.get('dude')
     dude_set = skillDisplay.key_in('dude', session)
     if dude_set:
         dude = session['dude']
@@ -151,7 +151,7 @@ def busykill():
     dude_classes = [dude.class_1, dude.class_2, dude.class_3]
     if dude.cp >= cost and skillclass in dude_classes:
         if parent != '':
-            #dude_skills = dude.listskills()
+            dude_skills = dude.listskills()
             result = False
             for skillcheck in dude_skills:
                 if skillcheck == parent:
@@ -207,7 +207,7 @@ def grabdata():
 def sellskill():
     skill = request.args.get('skill', '', type=str)
     rowID = request.args.get('buildID', '', type=str)
-    ##dude = session.get('dude')
+    dude = session.get('dude')
     dude_set = skillDisplay.key_in('dude', session)
     if dude_set:
         dude = session['dude']
