@@ -8,7 +8,7 @@ class Skills:
         self.hp_max = 0
         self.mp_max = 0
         self.ap_max = 0
-        self.weigh_max = 0
+        self.weight_max = 0
         self.melee_acc = 0
         self.sword_acc = 0
         self.hth_acc = 0
@@ -96,7 +96,7 @@ class Skills:
         elif self.name == 'Advanced Hide':
             self.hide = 10
         elif self.name == 'Strength':
-            self.weigh_max = 10
+            self.weight_max = 10
             self.ehw_acc = 5
         elif self.name == 'Stamina':
             self.hp_max = 10
@@ -178,6 +178,8 @@ class Skills:
             self.hp_max = 25
         elif self.name == 'Fiendish Bulk':
             self.hp_max = 35
+        elif self.name == 'Search':
+            self.search = 10
 
     def to_dict(self):
         json = {
@@ -189,7 +191,7 @@ class Skills:
             'hp_max': self.hp_max,
             'mp_max': self.mp_max,
             'ap_max': self.ap_max,
-            'weigh_max': self.weigh_max,
+            'weight_max': self.weight_max,
             'melee_acc': self.melee_acc,
             'sword_acc': self.sword_acc,
             'hth_acc': self.hth_acc,

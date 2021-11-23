@@ -3,7 +3,7 @@ class Character:
     The Character class is a Nexus Clash character object, it should hold all of the data that a character would.
     Skills along with a skill history, basic stats, level up function, as much as I can get to work really.
     """
-    def __init__(self, name, level=1, hp=50, mp=20, ap=50, cp=10, spent_cp=0, skills=[], buildplan = [], class_2=None, class_3=None, class_2_choice='Paladin', class_3_choice='Seraph'):
+    def __init__(self, name, level=1, hp=50, mp=20, ap=71, cp=10, spent_cp=0, skills=[], buildplan = [], class_2=None, class_3=None, class_2_choice='Paladin', class_3_choice='Seraph'):
         self.name = name
         self.level = level
         self.hp_max = hp
@@ -18,7 +18,7 @@ class Character:
         self.class_3 = class_3
         self.class_2_choice = class_2_choice
         self.class_3_choice = class_3_choice
-        self.weigh_max = 50
+        self.weight_max = 50
         self.melee_acc = 25
         self.sword_acc = 25
         self.hth_acc = 25
@@ -142,7 +142,6 @@ class Character:
         self.cp = self.cp + 10
 
         if self.level >= 10:
-            self.ap_max = self.ap_max + 1
             self.hp_max = self.hp_max + 1
             self.cp = self.cp + 10
             if self.level == 10 and self.class_2_choice:
@@ -165,36 +164,32 @@ class Character:
                 return
             if 10 <= self.level <= 19:
                 level_cp = 20
-                self.ap_max = self.ap_max - 1
                 self.hp_max = self.hp_max - 1
             elif self.level >= 20:
                 level_cp = 30
-                self.ap_max = self.ap_max - 1
                 self.hp_max = self.hp_max - 1
             else:
                 level_cp = 10
             self.mp_max = self.mp_max - 1
             self.cp = self.cp - level_cp
             self.level = self.level - 1
-            self.listskills()
+            #self.listskills()
         else:
             if self.skills[len(self.skills)-1].level == self.level:
                 self.remove_last_skill()
             else:
                 if 10 <= self.level <= 19:
                     level_cp = 20
-                    self.ap_max = self.ap_max - 1
                     self.hp_max = self.hp_max - 1
                 elif self.level >= 20:
                     level_cp = 30
-                    self.ap_max = self.ap_max - 1
                     self.hp_max = self.hp_max - 1
                 else:
                     level_cp = 10
                 self.mp_max = self.mp_max - 1
                 self.cp = self.cp - level_cp
                 self.level = self.level - 1
-                self.listskills()
+                #self.listskills()
 
     def stats(self, size=0):
         if size == 'sum':
@@ -521,7 +516,7 @@ class Character:
             'class_3': self.class_3,
             'class_2_choice': self.class_2_choice,
             'class_3_choice': self.class_3_choice,
-            'weigh_max': self.weigh_max,
+            'weight_max': self.weight_max,
             'melee_acc': self.melee_acc,
             'sword_acc': self.sword_acc,
             'hth_acc': self.hth_acc,

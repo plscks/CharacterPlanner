@@ -48,6 +48,27 @@
         });
     });
 
+    document.querySelector('.tierselectarea').addEventListener('mouseover', e => {
+            const skillArea = document.querySelector('.description');
+            skillArea.innerHTML = `
+            <h3>Nexus Clash Breath 5 Character Planner</h3>
+            <p>
+            Welcome to the Nexus Clash Breath 5 Character Planner!
+            <br>
+            This pane is the description pane and you can toggle it out and in by clicking the 'Descriptions' button. In a similar way you can toggle the spells pane. 
+            The build plan is underneath both of these panes for now.
+            </p>
+            <p>
+            This project is ongoing, there will be updates to it including core functionality and overall styling. If something is funky please don't hesitate to stop over to the <a class="infoLinks" href="https://github.com/plscks/CharacterPlanner/issues">Issue Tracker</a>
+            and let me know about bugs and any other ideas you might have.
+            </p>
+            <p>
+            For further info see the <a class="infoLinks" href="https://github.com/plscks/CharacterPlanner#readme">README</a> over at github. Contibution is quite welcome.
+            </p>
+            `;
+        });
+
+
     /* Menu enable/disable */
     $('.dropdown-toggle').click( (e) => {
         const click = true;
@@ -93,7 +114,7 @@
             e.preventDefault()
             $.getJSON('/levelup',
                 function(data) {
-                    const items = Array('level', 'cp', 'spent_cp', 'melee_acc', 'sword_acc', 'hth_acc', 'ehw_acc', 'bow_acc', 'firearm_acc', 'thrown_acc', 'spell_acc', 'melee_dam', 'sword_dam', 'hth_dam', 'death_type', 'bow_dam', 'firearm_dam', 'thrown_dam', 'gen_spell_dam', 'gem_spell_dam', 'hp_max');
+                    const items = Array('level', 'cp', 'spent_cp', 'melee_acc', 'sword_acc', 'hth_acc', 'ehw_acc', 'bow_acc', 'firearm_acc', 'thrown_acc', 'spell_acc', 'melee_dam', 'sword_dam', 'hth_dam', 'death_type', 'bow_dam', 'firearm_dam', 'thrown_dam', 'gen_spell_dam', 'gem_spell_dam', 'hp_max', 'mp_max', 'ap_max', 'weight_max', 'search', 'hide', 'impact_soak', 'slash_soak', 'pierce_soak', 'acid_soak', 'cold_soak', 'fire_soak', 'elec_soak', 'death_soak', 'holy_soak', 'unholy_soak', 'arcane_soak', 'dodge', 'evade');
                     items.forEach((item) => {
                         if (item.endsWith('_acc')) {
                             document.getElementById(item).innerText = `${data[item]}%`;
@@ -159,7 +180,7 @@
                     } else {
                         // Need to get skills and make sure they are checked to accomodate for behind the scences actions where a skill may be bought
                         skillinq.checked = !skillinq.checked;
-                        const items = Array('level', 'cp', 'spent_cp', 'melee_acc', 'sword_acc', 'hth_acc', 'ehw_acc', 'bow_acc', 'firearm_acc', 'thrown_acc', 'spell_acc', 'melee_dam', 'sword_dam', 'hth_dam', 'death_type', 'bow_dam', 'firearm_dam', 'thrown_dam', 'gen_spell_dam', 'gem_spell_dam', 'hp_max');
+                        const items = Array('level', 'cp', 'spent_cp', 'melee_acc', 'sword_acc', 'hth_acc', 'ehw_acc', 'bow_acc', 'firearm_acc', 'thrown_acc', 'spell_acc', 'melee_dam', 'sword_dam', 'hth_dam', 'death_type', 'bow_dam', 'firearm_dam', 'thrown_dam', 'gen_spell_dam', 'gem_spell_dam', 'hp_max', 'mp_max', 'ap_max', 'weight_max', 'search', 'hide', 'impact_soak', 'slash_soak', 'pierce_soak', 'acid_soak', 'cold_soak', 'fire_soak', 'elec_soak', 'death_soak', 'holy_soak', 'unholy_soak', 'arcane_soak', 'dodge', 'evade');
                         items.forEach((item) => {
                             if (item.endsWith('_acc')) {
                                 document.getElementById(item).innerText = `${data[item]}%`;

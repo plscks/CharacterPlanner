@@ -14,26 +14,6 @@
         <a id="menuTriggerSpells" class="dropdown-toggle" data-toggle="dropdown">Spells</a>
         <a id="gameLink" class="dropdown-toggle" href="https://www.nexusclash.com/clash.php">Back to Game</a>
     </div>
-    <!--
-    <table>
-        <tbody>
-            <tr>
-                <td id="level_label">Current Level:</td>
-                <td id="level">{{ dude.level }}</td>
-            </tr>
-            <tr>
-                <td id="cp_label">Total CP Banked:</td>
-                <td id="cp"> {{ dude.cp }}</td>
-            </tr>
-            <tr>
-                <td id="spent_cp_label">Total CP Spent:</td>
-                <td id="spent_cp"> {{ dude.spent_cp }}</td>
-            <tr>
-                <td><div class="button" id="levelup">Level Up</div></td>
-                <td><a href="{{ url_for('reset') }}"><button class="button">Reset</button></a>
-        </tbody>
-    </table>
-    -->
 </div>
 <div class="stats_attack">
     <div class="acc_boost">
@@ -78,5 +58,48 @@
     </div>
 </div>
 <div class="defense_area">
-    <div class="hp_max" id="hp_max">Max HP: {{ dude.hp_max }}</div>
+    <div class="base_stats">
+        <div class="base_stats_label">Base Stats</div>
+        <div class="hp_max_label">Max HP:</div>
+        <div class="hp_max" id="hp_max">{{ dude.hp_max }}</div>
+        <div class="mp_max_label">Max MP:</div>
+        <div class="mp_max" id="mp_max">{{ dude.mp_max }}</div>
+        <div class="ap_max_label">Max AP:</div>
+        <div class="ap_max" id="ap_max">{{ dude.ap_max }}</div>
+        <div class="weight_max_label">Inventory Max:</div>
+        <div class="weight_max" id="weight_max">{{ dude.weight_max }}</div>
+        <div class="search_label">Search (%):</div>
+        <div class="search" id="search">{{ dude.search }}</div>
+        <div class="hide_label">Hide (%):</div>
+        <div class="hide" id="hide">{{ dude.hide }}</div>
+    </div>
+    <div class="soaks">
+        <div class="soaks_label">Soaks and Resistences</div>
+        <div class="impact_soak_label">Impact:</div>
+        <div class="impact_soak" id="impact_soak">{{ dude.impact_soak }}</div>
+        <div class="slash_soak_label">Slashing:</div>
+        <div class="slash_soak" id="slash_soak">{{ dude.slash_soak }}</div>
+        <div class="pierce_soak_label">Piercing:</div>
+        <div class="pierce_soak" id="pierce_soak">{{ dude.pierce_soak }}</div>
+        <div class="acid_soak_label">Acid:</div>
+        <div class="acid_soak" id="acid_soak">{{ dude.acid_soak }}</div>
+        <div class="cold_soak_label">Cold:</div>
+        <div class="cold_soak" id="cold_soak">{{ dude.cold_soak }}</div>
+        <div class="fire_soak_label">Fire:</div>
+        <div class="fire_soak" id="fire_soak">{{ dude.fire_soak }}</div>
+        <div class="elec_soak_label">Electric:</div>
+        <div class="elec_soak" id="elec_soak">{{ dude.elec_soak }}</div>
+        <div class="death_soak_label">Death:</div>
+        <div class="death_soak" id="death_soak">{{ dude.death_soak }}</div>
+        <div class="holy_soak_label">Holy:</div>
+        <div class="holy_soak" id="holy_soak">{{ dude.holy_soak }}</div>
+        <div class="unholy_soak_label">Unholy:</div>
+        <div class="unholy_soak" id="unholy_soak">{{ dude.unholy_soak }}</div>
+        <div class="arcane_soak_label">Aracane:</div>
+        <div class="arcane_soak" id="arcane_soak">{{ dude.arcane_soak }}</div>
+        <div class="dodge_label">Dodge (%):</div>
+        <div class="dodge" id="dodge">{{ dude.dodge }}</div>
+        <div class="evade_label">Evasion (%):</div>
+        <div class="evade" id="evade">{{ dude.evade }}</div>
+    </div>
 </div>
