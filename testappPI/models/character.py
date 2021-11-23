@@ -256,11 +256,9 @@ class Character:
             return True
 
     def listskills(self):
-        print(f'Known skills:')
         knownskills = []
         for skill in self.skills:
             knownskills.append(skill.name)
-            print(f'{skill.name} - {skill.cost}cp - purchased at level {skill.level} object: {skill}')
         return knownskills
 
     def chooseclass(self, tier, chosen_class):
