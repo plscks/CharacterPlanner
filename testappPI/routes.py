@@ -16,12 +16,8 @@ db = app.db
 
 nav = [
         {'name': 'Home', 'url': '/', 'id': 'home'},
-        {'name': 'SignUp!', 'url': '/signup', 'id': 'signup'},
-        {'name': 'API link', 'url': '/api', 'id': 'api'},
-        {'name': 'B5 test server', 'url': 'javascript:alert("ACCESS DENIED!!! :P")', 'id': 'clash'},
-        {'name': 'Learn Some Flask!', 'url': 'https://hackersandslackers.com/flask-jinja-templates', 'id': 'flask'},
-        {'name': 'Contacts', 'url': '/contact', 'id': 'contacts'},
-        {'name': 'Logout', 'url': '/logout', 'id': 'logout'},
+        {'name': 'Nexus Clash Wiki', 'url': 'https://wiki.nexusclash.com', 'id': 'signup'},
+        {'name': 'Nexus Clash', 'url': 'https://www.nexusclash.com/clash.php', 'id': 'api'},
         {'name': 'Planner', 'url': '/planner/', 'id': 'planner'}
     ]
 
