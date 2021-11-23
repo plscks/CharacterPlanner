@@ -96,7 +96,7 @@ body {
 .cp_buttons {
   grid-area: cp_buttons;
   grid-row: 2 / 2;
-  display: block;
+  display: flex;
 }
 
 .stats_attack {
