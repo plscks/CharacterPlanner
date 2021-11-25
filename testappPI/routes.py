@@ -6,6 +6,7 @@ from flask import current_app as app
 from flask import json
 from flask.json import jsonify
 import gc
+import datetime
 from sqlalchemy.sql.expression import false
 from .forms import ContactForm, SignupForm
 from .models import character, skills, skillAttrib
@@ -24,6 +25,7 @@ nav = [
 
 @app.route('/')
 def home():
+    log(f'Running home()')
     """Landing page."""
     # return render_template(
     #     'home.html',
@@ -37,6 +39,7 @@ def home():
 
 @app.route('/skills/<selected_class>/', methods=['GET'])
 def mortal_skills(selected_class):
+    log(f'Running mortalskills(selected_class: {selected_class})')
     """Displays mortal skills"""
     skill_class = selected_class.title()
     skills_list = skillDisplay.skill_grab(db, skill_class)
@@ -49,6 +52,7 @@ def mortal_skills(selected_class):
 
 @app.route('/planner/reset/')
 def reset():
+    log(f'Running reset()')
     session.pop('dude', None)
     gc.collect()
     return redirect(url_for('planner', tier2=None, tier3=None, reset=1))
@@ -56,6 +60,7 @@ def reset():
 
 @app.route('/planner/update/')
 def update():
+    log(f'Running update()')
     # Update skills database from csv
     # spells = database.SpellDB()
     # spells.updateDB()
@@ -70,6 +75,7 @@ def update():
 @app.route('/planner/<tier2>/', defaults={'tier3': None, 'reset': None}, methods=['GET'])
 @app.route('/planner/<tier2>/<tier3>/', defaults={'reset': None}, methods=['GET'])
 def planner(tier2, tier3, reset):
+    log(f'Running planner(tier2: {tier2}, tier3: {tier3}, reset: {reset})')
     skills = database.SkillDB()
     spells = database.SpellDB()
     if reset == 3:
@@ -124,6 +130,7 @@ def planner(tier2, tier3, reset):
 
 @app.route('/levelup', methods=['GET'])
 def levelup():
+    log(f'Running levelup()')
     dude = session.get('dude')
     dude_set = skillDisplay.key_in('dude', session)
     if dude_set:
@@ -139,6 +146,7 @@ def levelup():
 
 @app.route('/buyskill', methods=['GET'])
 def busykill():
+    log(f'Running buySkill()')
     skill = request.args.get('skill', '', type=str)
     cost = request.args.get('cost', 0, type=int)
     parent = request.args.get('parent', '', type=str)
@@ -180,6 +188,7 @@ def busykill():
 
 @app.route('/updatePane', methods=['GET'])
 def updatePane():
+    log(f'Running updatePane()')
     pane = request.args.get('pane', '', type=str)
     spell = request.args.get('spell', '', type=str)
     dude_set = skillDisplay.key_in('dude', session)
@@ -195,6 +204,7 @@ def updatePane():
 
 @app.route('/grabdata', methods=['GET'])
 def grabdata():
+    log(f'Running grabdata()')
     dude_set = skillDisplay.key_in('dude', session)
     if dude_set:
         dude = session['dude']
@@ -207,6 +217,7 @@ def grabdata():
 
 @app.route('/sellskill', methods=['GET'])
 def sellskill():
+    log(f'Running sellskill()')
     skill = request.args.get('skill', '', type=str)
     rowID = request.args.get('buildID', '', type=str)
     dude = session.get('dude')
@@ -228,6 +239,7 @@ def sellskill():
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
+    log(f'Running contact()')
     """Standard `contact` form."""
     # form = ContactForm()
     # if form.validate_on_submit():
@@ -245,6 +257,7 @@ def contact():
 
 @app.errorhandler(404)
 def not_found(thing):
+    log(f'Running not_found(thing: {thing})')
     """Page not found."""
     session.pop('dude', None)
     return make_response(render_template(
@@ -256,6 +269,7 @@ def not_found(thing):
 
 @app.errorhandler(500)
 def broke_stuff(thing):
+    log(f'Running broke_stuff(thing: {thing})')
     """Page broken."""
     session.pop('dude', None)
     return make_response(render_template(
@@ -267,6 +281,7 @@ def broke_stuff(thing):
 
 @app.route("/api")
 def api():
+    log(f'Running api()')
     """
     May someday connect into the Nexus Clash Character API
 
@@ -306,3 +321,7 @@ def api():
             'Defiler': 'Desecration'
         }
     return make_response(jsonify(classskills), 200, headers)
+
+def log(text):
+    ct = datetime.datetime.now()
+    print(f'{ct} [sid: {session.sid}]: - {text}')
