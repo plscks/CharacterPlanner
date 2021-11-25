@@ -54,6 +54,7 @@ def mortal_skills(selected_class):
 def reset():
     log(f'Running reset()')
     session.pop('dude', None)
+    session.clear()
     gc.collect()
     return redirect(url_for('planner', tier2=None, tier3=None, reset=1))
 
@@ -324,4 +325,7 @@ def api():
 
 def log(text):
     ct = datetime.datetime.now()
-    print(f'{ct} [sid: {session.sid}]: - {text}')
+    if not hasattr(session, 'sid'):
+        print(f'{ct} [sid: NO SESSION DATA]: - {text}')
+    else:
+        print(f'{ct} [sid: {session.sid}]: - {text}')
