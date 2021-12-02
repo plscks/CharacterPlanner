@@ -82,8 +82,11 @@ def planner(tier2, tier3, reset):
         reset = 1
     dude_set = skillDisplay.key_in('dude', session)
     if dude_set and reset == None:
+        log(f'Dude is set, retrieving saved dude')
         dude = session['dude']
     else:
+        log(f'Resetting dude')
+        session.pop('dude', None)
         dude = character.Character('dude')
         session['dude'] = dude
     mortalskills = skills.getSkills('Mortal')
@@ -196,9 +199,11 @@ def updatePane():
         dude = session['dude']
         dude.setPane(pane, spell)
         result = 'success'
+        log(f'dude was set, updated pane setting: {result}')
     else:
         failure = 'Something went wrong setting the pane state!'
         result = ['Failure', failure]
+        log(f'dude was not set: {result[0]}')
     return result
         
 
